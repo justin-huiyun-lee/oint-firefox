@@ -1,0 +1,101 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 10px;
+  width: 400px;
+}
+
+.coffee-container {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.logo-image {
+  width: 100px;
+  height: 100px;
+}
+
+.image-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.title-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: -30px;
+}
+
+.subtitle-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.button-2 {
+  background-color: rgba(51, 51, 51, 0.05);
+  border-radius: 8px;
+  border-width: 0;
+  color: #333333;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 10px 12px;
+  text-align: center;
+  transition: all 200ms;
+  vertical-align: baseline;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin: 5px;
+}
+
+.ability {
+  appearance: none;
+  background-color: #fff;
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid #e91e63;
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+  &::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em #e91e63;
+    background-color: CanvasText;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform-origin: left top;
+  }
+  &:checked::before {
+    transform: scale(1);
+  }
+}
+
+.abilityContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.just-ability-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 20px;
+}
