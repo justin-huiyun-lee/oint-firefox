@@ -28,9 +28,10 @@ function toggleWhitelist(currentHost) {
       whitelist.push(currentHost);
     }
 
-    // Save the updated whitelist
+    // Save the updated whitelist and update the displayed list
     browser.storage.local.set({ whitelist: whitelist }, function () {
       updateButton(currentHost);
+      displayWhitelistedWebsites(); // Update the displayed whitelist after changing it
     });
   });
 }
@@ -62,7 +63,74 @@ function initCheckbox() {
   });
 }
 
-// Initialize the popup with the current website and checkbox
+// Function to display the list of whitelisted websites
+function displayWhitelistedWebsites() {
+  const whitelistElement = document.getElementById("whitelistedWebsitesList");
+
+  // Retrieve the whitelist from storage
+  browser.storage.local.get("whitelist", function (result) {
+    const whitelist = result.whitelist || [];
+
+    // Clear the existing list in the DOM
+    whitelistElement.innerHTML = "";
+    whitelistElement.classList.add("whitelisted-sites-list");
+
+    // Populate the <ul> with the whitelisted sites
+    whitelist.forEach((site) => {
+      const listItem = document.createElement("li");
+      listItem.classList.add("whitelisted-site");
+
+      const listItemContainer = document.createElement("div");
+      listItemContainer.classList.add("list-item-container");
+
+      const text = document.createElement("p");
+      text.textContent = site;
+      text.classList.add("whitelisted-site-text");
+
+      const textContainer = document.createElement("div");
+      textContainer.classList.add("text-container");
+      textContainer.appendChild(text);
+
+      const container = document.createElement("div");
+      container.classList.add("button-container");
+
+      // Remove button
+      const removeButton = document.createElement("button");
+      removeButton.textContent = "Remove";
+      removeButton.classList.add("button-2");
+      removeButton.addEventListener("click", () => {
+        // Remove the site from the whitelist
+        const updatedWhitelist = whitelist.filter(
+          (whitelistedSite) => whitelistedSite !== site,
+        );
+        browser.storage.local.set({ whitelist: updatedWhitelist }, function () {
+          // Refresh the list after removing the site
+          displayWhitelistedWebsites();
+        });
+        updateButton(site);
+      });
+
+      // Visit button
+      const visitButton = document.createElement("button");
+      visitButton.textContent = "Visit Site";
+      visitButton.classList.add("button-2");
+      visitButton.addEventListener("click", () => {
+        // Open the whitelisted site in a new tab
+        browser.tabs.create({ url: `https://${site}` });
+      });
+
+      container.appendChild(removeButton);
+      container.appendChild(visitButton);
+      listItemContainer.appendChild(textContainer);
+      listItemContainer.appendChild(container);
+      listItem.appendChild(listItemContainer);
+
+      whitelistElement.appendChild(listItem);
+    });
+  });
+}
+
+// Initialize the popup with the current website, checkbox, and whitelist
 getCurrentTab().then((tab) => {
   const currentHost = new URL(tab.url).hostname;
   document.getElementById("currentWebsite").textContent =
@@ -71,6 +139,9 @@ getCurrentTab().then((tab) => {
 
   // Initialize the checkbox state
   initCheckbox();
+
+  // Display the whitelisted websites
+  displayWhitelistedWebsites();
 
   // Add event listener to toggle whitelist on button click
   document
