@@ -17,15 +17,15 @@
   "browser_action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "assets/oint-firefox-logo.png",
-      "48": "assets/oint-firefox-logo.png",
-      "128": "assets/oint-firefox-logo.png"
+      "16": "assets/oint-firefox-icon.png",
+      "48": "assets/oint-firefox-icon.png",
+      "128": "assets/oint-firefox-icon.png"
     }
   },
   "icons": {
-    "16": "assets/oint-firefox-logo.png",
-    "48": "assets/oint-firefox-logo.png",
-    "128": "assets/oint-firefox-logo.png"
+    "16": "assets/oint-firefox-icon.png",
+    "48": "assets/oint-firefox-icon.png",
+    "128": "assets/oint-firefox-icon.png"
   },
   "browser_specific_settings": {
     "gecko": {
